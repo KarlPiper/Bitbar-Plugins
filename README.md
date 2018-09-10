@@ -1,3 +1,4 @@
+![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/preview.gif)
 # bitbar-appearance-options
 - Set random desktop image
   - Toggle image rotation.
