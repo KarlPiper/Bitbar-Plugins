@@ -1,7 +1,8 @@
 # bitbar-appearance-options
 - Set random desktop image
-  - Toggle image rotation (changing)
-  - Choose image rotation timer.
+  - Toggle image rotation.
+	- Choose image rotation timer.
+	- Toggle random order for image rotation.
 - Toggle dark mode.
   - Menu item title reacts to dark mode status ("enable/disable" instead of just "toggle")
   - Optional, enabled by default. Causes—required—restart of BitBar.
