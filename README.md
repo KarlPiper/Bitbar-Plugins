@@ -1,2 +1,11 @@
-# bitbar-desktop-options
-Controls desktop appearance. Change to a random desktop image, and toggle darkmode.
+# bitbar-appearance-options
+- Set random desktop image
+  - Toggle image rotation (changing)
+  - Choose image rotation timer.
+- Toggle dark mode.
+  - Menu item title reacts to dark mode status ("enable/disable" instead of just "toggle")
+  - Optional, enabled by default. Causes—required—restart of BitBar.
+- Launch screensaver.
+- Set Night Shift warmth level.
+  - Requires [nshift](https://github.com/jenghis/nshift)
+  - Optional, disabled by default
