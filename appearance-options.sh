@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# <bitbar.title>Desktop Options</bitbar.title>
+# <bitbar.title>Appearance Options</bitbar.title>
 # <bitbar.version>v1.0</bitbar.version>
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
@@ -25,10 +25,13 @@ echo "---"
 # APPLESCRIPT FUNCTIONS
 function changeDesktopImg () {
 osascript <<EOD
+	tell application "Finder"
+		set img to some file of folder (POSIX file "$1") as string
+	end tell
 	tell application "System Events"
 		tell current desktop
 			set pictures folder to "$1"
-			return img
+			set picture to img
 		end tell
 	end tell
 EOD
