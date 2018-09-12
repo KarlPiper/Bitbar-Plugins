@@ -1,4 +1,4 @@
-![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/preview.gif)
+![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/appearance-options.png)
 # bitbar-appearance-options
 ## Features
 - Set random desktop image
