@@ -1,5 +1,6 @@
 ![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/appearance-options.png)
 # bitbar-appearance-options
+### Plugin for [BitBar](https://getbitbar.com/)
 ## Features
 - Set random desktop image
   - Toggle image rotation
