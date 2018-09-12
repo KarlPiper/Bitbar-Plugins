@@ -1,7 +1,10 @@
+# Plugins for [BitBar](https://getbitbar.com/)
+## Tutorial: Refresh
+Simple example of refreshing just your plugin, rather than all enabled plugins.
+Applescript example to restart BitBar entirely.
+## Appearance Options
 ![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/appearance-options.png)
-# bitbar-appearance-options
-### Plugin for [BitBar](https://getbitbar.com/)
-## Features
+### Features
 - Set random desktop image
   - Toggle image rotation
 	- Choose rotation timing
