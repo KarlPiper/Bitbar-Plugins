@@ -1,7 +1,7 @@
 # Plugins for [BitBar](https://getbitbar.com/)
 ## Tutorial: Refresh
-Simple example of refreshing just your plugin, rather than all enabled plugins.
-Applescript example to restart BitBar entirely.
+- Simple example of refreshing just your plugin, rather than all enabled plugins.
+- Example to restart BitBar entirely, using applescript.
 ## Appearance Options
 ![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/Bitbar-Plugins/master/appearance-options/images/appearance-options.png)
 ### Features
