@@ -5,7 +5,7 @@
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
 # <bitbar.desc>How to refresh just one plugin, or restart BitBar entirely.</bitbar.desc>
-# <bitbar.image></bitbar.image>
+# <bitbar.image>https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/refresh.png</bitbar.image>
 # <bitbar.dependencies>bash</bitbar.dependencies>
 
 if [[ "$1" = "restart" ]]; then

@@ -5,7 +5,7 @@
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
 # <bitbar.desc>Set random desktop image, choose image rotation timing and order. Toggle dark mode. Start screensaver. Set Night Shift warmth level (optional, requires: jenghis/nshift).</bitbar.desc>
-# <bitbar.image>https://raw.githubusercontent.com/KarlPiper/bitbar-appearance-options/master/preview.gif</bitbar.image>
+# <bitbar.image>https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/appearance-preview.gif</bitbar.image>
 # <bitbar.dependencies>bash</bitbar.dependencies>
 
 # OPTIONS
