@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # <bitbar.title>Appearance Options</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.version>v2.0</bitbar.version>
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
-# <bitbar.desc>Set random desktop image, choose image rotation timing and order. Toggle dark mode. Start screensaver. Set Night Shift warmth level (optional, requires: jenghis/nshift).</bitbar.desc>
+# <bitbar.desc>Set random desktop image, choose image sizing, rotation timing, and order. Toggle dark mode. Start screensaver. Set Night Shift warmth level (optional, requires: jenghis/nshift).</bitbar.desc>
 # <bitbar.image>https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/appearance-preview.gif</bitbar.image>
 # <bitbar.dependencies>bash</bitbar.dependencies>
 
 # OPTIONS
-# generic title "toggle" (false) | "enable/disable" (true) cases bitbar restart
+# use generic "toggle" instead of "enable/disable", which causes bitbar restart
 darkModeAltTitle=true
 # desktop image folder paths
 sfwPath="/Library/Desktop Pictures/Solid Colors/"
@@ -109,6 +109,58 @@ osascript <<EOD
 	end if
 EOD
 }
+# requires accessibility permissions
+function desktopImgSizing () {
+osascript <<EOD
+	tell application "System Events"
+		tell current desktop
+			set currentPicture to picture
+		end tell
+	end tell
+
+	tell application "Image Events"
+		launch
+		set currentPicture to open currentPicture
+		copy the dimensions of currentPicture to {imgWidth, imgHeight}
+		close currentPicture
+	end tell
+
+	if "$1" is "Tile"
+		if imgHeight > 900 then
+			display alert "Tiling image height must be ≤ 900px." message "This image is " & imgWidth & "x" & imgHeight
+			error number -128
+		else
+			changeSizes()
+		end if
+	else
+		changeSizes()
+	end if
+	on changeSizes()
+		if application "System Preferences" is running then
+			quit application "System Preferences"
+			delay 1
+		end if
+
+		tell application "System Preferences"
+			reveal pane "com.apple.preference.desktopscreeneffect"
+			reveal anchor "DesktopPref" of pane id "com.apple.preference.desktopscreeneffect"
+		end tell
+
+		delay 0.25
+
+		tell application "System Events"
+			tell pop up button 2 of tab group 1 of window 1 of process "System Preferences"
+				click
+				tell menu 1
+					click menu item "$1"
+				end tell
+			end tell
+		end tell
+		quit application "System Preferences"
+		display notification "Desktop image size changed to " & "$1" & "." with title "Appearance Options"
+	end changeSizes
+EOD
+}
 
 # DARK MODE STATUS
 BitBarDarkMode=${BitBarDarkMode}
@@ -145,45 +197,55 @@ elif [[ "$1" = "nightShift" ]]; then
 	nightShift;
 elif [[ "$1" = "screensaver" ]]; then
 	launchScreensaver;
+elif [[ "$1" = "sizing" ]]; then
+	desktopImgSizing "$2"
 fi
 
 # MENU ITEMS
 echo "🏞 Set Wallpaper"
-echo "--🏔 SFW| bash='$0' param1=desktop param2=sfw terminal=false";
-echo "--🌋 NSFW| bash='$0' param1=desktop param2=nsfw terminal=false";
-echo "--Rotation"
+echo "--🏔 SFW | bash='$0' param1=desktop param2=sfw terminal=false";
+echo "--🌋 NSFW | bash='$0' param1=desktop param2=nsfw terminal=false";
+if "$desktopImgSizing" = true; then
+	echo "--Size | bash='$0' param1=sizing terminal=false";
+	echo "----Fill | bash='$0' param1=sizing param2='Fill Screen' terminal=false";
+	echo "----Fit | bash='$0' param1=sizing param2='Fit to Screen' terminal=false";
+	echo "----Stretch | bash='$0' param1=sizing param2='Stretch to Fill Screen' terminal=false";
+	echo "----Center | bash='$0' param1=sizing param2=Center terminal=false";
+	echo "----Tile | bash='$0' param1=sizing param2=Tile terminal=false";
+fi
 
+echo "--Rotation"
 if [[ $(checkRotationTiming) = "300.0" ]]; then
-	echo "----Disable| bash='$0' param1=rotation param2=0 param3=1.0 terminal=false refresh=true";
-	echo "----✓ 5 min| bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
-	echo "----1 hr| bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
+	echo "----Disable | bash='$0' param1=rotation param2=0 param3=1.0 terminal=false refresh=true";
+	echo "----✓ 5 min | bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
+	echo "----1 hr | bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
 elif [[ $(checkRotationTiming) = "3600.0" ]]; then
-	echo "----Disable| bash='$0' param1=rotation param2=0 param3=1.0 terminal=false refresh=true";
-	echo "----5 min| bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
-	echo "----✓ 1 hr| bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
+	echo "----Disable | bash='$0' param1=rotation param2=0 param3=1.0 terminal=false refresh=true";
+	echo "----5 min | bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
+	echo "----✓ 1 hr | bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
 else
-	echo "----5 min| bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
-	echo "----1 hr| bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
+	echo "----5 min | bash='$0' param1=rotation param2=1 param3=300.0 terminal=false refresh=true";
+	echo "----1 hr | bash='$0' param1=rotation param2=1 param3=3600.0 terminal=false refresh=true";
 fi
 echo "-------"
 if $(checkRandom) = true; then
-	echo "----✓ Random| bash='$0' param1=random terminal=false refresh=true";
+	echo "----✓ Random | bash='$0' param1=random terminal=false refresh=true";
 else
-	echo "----Random| bash='$0' param1=random terminal=false refresh=true";
+	echo "----Random | bash='$0' param1=random terminal=false refresh=true";
 fi
 
 if "$darkModeAltTitle" = true; then
 	if "$isDark" = true; then
-		echo "🌔 Go Light| bash='$0' param1=darkMode terminal=false";
+		echo "🌔 Go Light | bash='$0' param1=darkMode terminal=false";
 	else
-		echo "🌘 Go Dark| bash='$0' param1=darkMode terminal=false";
+		echo "🌘 Go Dark | bash='$0' param1=darkMode terminal=false";
 	fi
 else
-	echo "🌘 Toggle Dark Mode| bash='$0' param1=darkMode terminal=false";
+	echo "🌘 Toggle Dark Mode | bash='$0' param1=darkMode terminal=false";
 fi
 
-echo "🌀 Start Screensaver| bash='$0' param1=screensaver terminal=false";
+echo "🌀 Start Screensaver | bash='$0' param1=screensaver terminal=false";
 
 if [[ "$nshiftDir" != false ]]; then
-	echo "💤 Night Shift| bash='$0' param1=nightShift terminal=false";
+	echo "💤 Night Shift | bash='$0' param1=nightShift terminal=false";
 fi
