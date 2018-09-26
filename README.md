@@ -17,3 +17,7 @@
 - Set Night Shift warmth level
   - Requires [nshift](https://github.com/jenghis/nshift)
   - Optional, disabled by default
+## File Info
+![refresh-preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/file-info-preview.png)
+- Get file info of selected files
+- Show in TextEdit if more than n files are selected
