@@ -6,13 +6,14 @@
 ## Appearance Options
 ![appearance-options preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/appearance-preview.gif)
 ### Features
-- Set random desktop image
+- Set desktop image
   - Toggle image rotation
 	- Choose rotation timing
-	- Randomize rotation order
+	- Choose image sizing (requires accessibility permissions)
+	- Toggle random order
 - Toggle dark mode
   - Menu item title reacts to dark mode status ("enable/disable" instead of just "toggle")
-  - Optional, enabled by default. Causes—required—restart of BitBar
+  - Optional, enabled by default. Causes BitBar to restart.
 - Launch screensaver
 - Set Night Shift warmth level
   - Requires [nshift](https://github.com/jenghis/nshift)
