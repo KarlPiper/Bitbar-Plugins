@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # <bitbar.title>Appearance Options</bitbar.title>
-# <bitbar.version>v2.0</bitbar.version>
+# <bitbar.version>v2.1</bitbar.version>
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
 # <bitbar.desc>Set random desktop image, choose image sizing, rotation timing, and order. Toggle dark mode. Start screensaver. Set Night Shift warmth level (optional, requires: jenghis/nshift).</bitbar.desc>
