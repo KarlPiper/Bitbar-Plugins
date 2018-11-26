@@ -16,6 +16,10 @@ sfwPath="/Library/Desktop Pictures/Solid Colors/"
 nsfwPath="/Library/Desktop Pictures/"
 # path to nshift (https://github.com/jenghis/nshift) e.g. nshiftDir="/usr/local/bin/nshift"
 nshiftDir="false"
+# enable janky UI scripting of desktop image sizing
+desktopImgSizing=true
+# enable refresh plugin and restart BitBar menu items
+refreshOpts=false
 
 # MENU BAR ICON
 # templateImage reacts to dark mode (black transparent tiff 36x36px/144ppi)
@@ -77,6 +81,15 @@ osascript <<EOD
 			return change interval
 		end tell
 	end tell
+EOD
+}
+function macOSHasDarkMode () {
+osascript <<EOD
+    set macVersion to system version of (system info)
+    considering numeric strings
+        set newEnough to macVersion >= "10.14.0"
+        return newEnough as text
+    end considering
 EOD
 }
 function checkRandom () {
@@ -188,7 +201,9 @@ if [[ "$1" = "desktop" ]]; then
 	fi
 fi
 
-if [[ "$1" = "rotation" ]]; then
+if [[ "$1" = "restart" ]]; then
+  restartBitBar;
+elif [[ "$1" = "rotation" ]]; then
 	desktopImgRotation "$2" "$3";
 	checkRandom;
 elif [[ "$1" = "random" ]]; then
@@ -233,19 +248,26 @@ if $(checkRandom) = true; then
 else
 	echo "----Random | bash='$0' param1=random terminal=false refresh=true";
 fi
-
-if "$darkModeAltTitle" = true; then
-	if "$isDark" = true; then
-		echo "🌔 Go Light | bash='$0' param1=darkMode terminal=false";
-	else
-		echo "🌘 Go Dark | bash='$0' param1=darkMode terminal=false";
-	fi
-else
-	echo "🌘 Toggle Dark Mode | bash='$0' param1=darkMode terminal=false";
+if [[ $(macOSHasDarkMode) = true ]]; then
+    if "$darkModeAltTitle" = true; then
+        if "$isDark" = true; then
+            echo "🌔 Go Light | bash='$0' param1=darkMode terminal=false";
+        else
+            echo "🌘 Go Dark | bash='$0' param1=darkMode terminal=false";
+        fi
+    else
+        echo "🌘 Toggle Dark Mode | bash='$0' param1=darkMode terminal=false";
+    fi
 fi
 
 echo "🌀 Start Screensaver | bash='$0' param1=screensaver terminal=false";
 
 if [[ "$nshiftDir" != false ]]; then
 	echo "💤 Night Shift | bash='$0' param1=nightShift terminal=false";
+fi
+
+if "$refreshOpts" = true; then
+	echo "---"
+	echo "Refresh Me | terminal=false refresh=true"
+	echo "Restart Bitbar | bash='$0' param1=restart terminal=false";
 fi
