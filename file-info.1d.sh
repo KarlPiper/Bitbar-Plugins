@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # <bitbar.title>File-Info</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.version>v1.1</bitbar.version>
 # <bitbar.author>Karl Piper</bitbar.author>
 # <bitbar.author.github>KarlPiper</bitbar.author.github>
-# <bitbar.desc></bitbar.desc>
-# <bitbar.image></bitbar.image>
+# <bitbar.desc>Exposes metadata of selected finder items.</bitbar.desc>
+# <bitbar.image>https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/file-info-preview.gif</bitbar.image>
 # <bitbar.dependencies>bash</bitbar.dependencies>
 
 # OPTIONS
-# maximum number of items to display in dialog instead of TextEdit
+# max items output to dialog instead of TextEdit
 alertLengthLimit=4
-# optional name of monospaced font to use
-font=false
+# optional name of monospaced font to use in TextEdit
+font="PT Mono"
 
 # MENU BAR ICON
 # black and transparent PNG 36x36px 144ppi
@@ -22,6 +22,7 @@ echo "---"
 # APPLESCRIPT FUNCTIONS
 function getInfo () {
 osascript <<EOD
+	# data handling
 	tell application "Finder"
 		set selectedFiles to selection as alias list
 		set alertLengthLimit to "$alertLengthLimit"
@@ -31,23 +32,28 @@ osascript <<EOD
 		set fileExtensions to {}
 		set mergedList to {}
 		if selectedFiles ≠ {} then
+			# populate metadata arrays
 			repeat with i in selectedFiles
 				set end of filePaths to POSIX path of (contents of i)
 				set end of fileNames to name of i
 				set end of fileKinds to kind of i
 				set end of fileExtensions to name extension of i
 			end repeat
+			# construct metadata blocks
 			if (count of selectedFiles) > alertLengthLimit then
 				repeat with i from 1 to number of items in selectedFiles
+					# verbose, for text editor output
 					set end of mergedList to {"Name	" & item i of fileNames, "Type	" & item i of fileExtensions & item i of fileKinds, "Path	" & item i of filePaths, ""}
 				end repeat
 			else
 				repeat with i from 1 to number of items in selectedFiles
+					# concise, for dialog output
 					set end of mergedList to {"\"" & item i of fileNames & "\"", "	" & item i of fileExtensions & item i of fileKinds, "	" & item i of filePaths, ""}
 				end repeat
 			end if
 		end if
 	end tell
+	# output handling
 	if selectedFiles ≠ {} then
 		set text item delimiters to linefeed
 		if (count of selectedFiles) = 1 then
@@ -74,17 +80,27 @@ osascript <<EOD
 				end tell
 			end tell
 		end if
+	# error handling
 	else
 		beep
 		display notification "No files selected." with title "File Info"
 	end if
 EOD
 }
+function viewSettings () {
+osascript <<EOD
+	display alert "File Info Settings" message "TextEdit Font: " & "$font" & "\nMax. Items in Dialog: " & "$alertLengthLimit" & "\n\nTo change:\n1. File Info Icon > Preferences > Open Plugins Folder\n2. Open 'file-info.sh' in a text editor\n3. Modify variables at top of file"
+EOD
+}
 
 # MENU ITEM HANDLERS
-if [[ "$1" = "info" ]]; then
+if [[ "$1" = "settings" ]]; then
+		viewSettings;
+elif [[ "$1" = "info" ]]; then
 		getInfo;
 fi
 
 # MENU ITEMS
 echo "Get Info | bash='$0' param1=info terminal=false";
+echo "---"
+echo "Settings… | bash='$0' param1=settings terminal=false";
