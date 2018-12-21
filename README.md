@@ -1,5 +1,5 @@
 # Plugins for [BitBar](https://getbitbar.com/)
-## Tutorial: Refresh
+## Tutorial: Refresh Me
 ![refresh-preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/refresh.png)
 - Simple example of refreshing just your plugin, rather than all enabled plugins.
 - Example to restart BitBar entirely, using applescript.
