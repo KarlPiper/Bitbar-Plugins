@@ -1,4 +1,7 @@
 # Plugins for [BitBar](https://getbitbar.com/)
+## Tutorial: View Settings
+![settings-preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/settings-preview.png)
+- Simple example of exposing current plugin settings (variables in script)
 ## Tutorial: Refresh Me
 ![refresh-preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/refresh.png)
 - Simple example of refreshing just your plugin, rather than all enabled plugins.
