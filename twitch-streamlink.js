@@ -9,10 +9,10 @@
 // <bitbar.dependencies>node, streamlink</bitbar.dependencies>
 
 // CUSTOM VERSION CHANGES
-// explicit path to config file containing auth token (line 24)
+// original https://github.com/matryer/bitbar-plugins/blob/master/Web/Twitch/livestreamer-now-playing.5m.js
+// explicit path to config file containing auth token (line 25)
 // custom darkmode responsive templateImage icon (line 59)
 // modified menu text (lines 87-92)
-//
 
 'use strict';
 
