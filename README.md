@@ -27,3 +27,6 @@
 ![refresh-preview](https://raw.githubusercontent.com/KarlPiper/Plugins-for-Bitbar/master/images/file-info-preview.gif)
 - Get file info of selected files
 - Show in TextEdit if more than n files are selected
+## Twitch Streamlink
+Fork of [Livestreamer-Now-Playing](https://github.com/matryer/bitbar-plugins/blob/master/Web/Twitch/livestreamer-now-playing.5m.js)
+- Minor aesthetic changes
