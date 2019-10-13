@@ -30,7 +30,8 @@
 ### Features
 - Get file info of selected files
 - Show in TextEdit if more than 𝑛 files are selected
-## Twitch Streamlink
+## Twitch Streamlink [DEPRECATED]
 Fork of [Livestreamer-Now-Playing](https://github.com/matryer/bitbar-plugins/blob/master/Web/Twitch/livestreamer-now-playing.5m.js)
+Twitch has changed APIs and this no longer works.
 ### Features
 - Minor aesthetic changes
